@@ -115,6 +115,7 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.views import APIView
 from rest_framework.generics import GenericAPIView
 
+
 class PageRoles(APIView):
     def get(self, request, *args, **kwargs):
         roles = Role.objects.all()
