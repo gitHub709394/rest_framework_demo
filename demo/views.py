@@ -128,3 +128,24 @@ class PageRoles(APIView):
         roles_ser = RoleSerialzers(instance=page_list, many=True)
 
         return page.get_paginated_response(data=roles_ser.data)
+
+
+class ViewDemo(GenericAPIView):
+    # 查询哪个表中的数据
+    queryset = Role.objects.all()
+
+    # 序列化
+    serializer_class = RoleSerialzers
+
+    def get(self, request, *args, **kwargs):
+        # 查询哪个表中的数据
+        roles = self.get_queryset()
+
+        # 分页
+        page_data = self.paginate_queryset(roles)
+
+        # 序列化
+        ser = self.get_serializer(instance=page_data, many=True)
+
+        # return Response("View 测试")
+        return Response(ser.data)
